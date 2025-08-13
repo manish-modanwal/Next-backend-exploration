@@ -1,10 +1,13 @@
 "use client";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+
 
 export default function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const router= useRouter();
 
   return (
     <div className="w-screen h-screen flex justify-center items-center bg-gray-50">
@@ -23,18 +26,14 @@ export default function Signup() {
         />
         <button
           className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded w-full"
-          onClick={() => {
-            axios
+          onClick={async () => {
+           await  axios
               .post("http://localhost:3000/api/v1/signup", {
                 username,
                 password,
               })
-              .then((res) => {
-                console.log("Signup success:", res.data);
-              })
-              .catch((err) => {
-                console.error("Signup error:", err);
-              });
+              
+              router.push("/signin")
           }}
         >
           Sign up
